@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="App">
       <div className="container pt-5 pb-5">
-        <div className="row h4 mb-5">
+        <div className="row h4 mb-5 ml-3 mr-3">
           {runelist.map((rune) => (
             <span className="badge badge-info m-1">{rune}</span>
           ))}

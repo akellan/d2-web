@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <div className="container pt-5 pb-5">
-        <div className="row row-cols-3">
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
           {Runewords.map((runeword, index) => (
             <div key={index} className="col">
               <div className="card m-2">

@@ -1,4 +1,4 @@
-import { RuneWord } from "../data/Runewords";
+import { RuneWord } from "../data/AllRuneWords";
 
 export const filterBySelectedRunes = (selectedRunes: string[]) => ({
   runes,

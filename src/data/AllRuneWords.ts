@@ -5,7 +5,7 @@ export interface RuneWord {
   stats: string[];
 }
 
-export const RuneWords: RuneWord[] = [
+export const AllRuneWords: RuneWord[] = [
   {
     name: "Ancient's Pledge",
     types: ["Shields"],

@@ -1,11 +1,11 @@
-interface RuneWeapon {
+export interface RuneWord {
   name: string;
   types: string[];
   runes: string[];
   stats: string[];
 }
 
-export const Runewords: RuneWeapon[] = [
+export const RuneWords: RuneWord[] = [
   {
     name: "Ancient's Pledge",
     types: ["Shields"],

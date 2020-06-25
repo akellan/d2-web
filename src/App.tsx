@@ -12,6 +12,7 @@ function App() {
     <div className="App">
       <div className="container pt-5 pb-5">
         <div className="row h4 mb-5 ml-3 mr-3">
+          Rune:{" "}
           <RuneList
             selectedRunes={selectedRunes}
             toggleRuneSelection={toggleRuneSelection}

@@ -10,8 +10,8 @@ export const RuneWordsList = memo<RuneWordsListProps>(function RuneWordsList({
 }) {
   return (
     <>
-      {runeWords.map((runeword, index) => (
-        <div key={index} className="col">
+      {runeWords.map((runeword) => (
+        <div key={runeword.name} className="col">
           <div className="card mb-5">
             <div className="card-header bg-light text-primary h4">
               {runeword.name}

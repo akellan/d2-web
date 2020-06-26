@@ -1,25 +1,34 @@
 import { RuneWord, AllRuneWords } from "./data/AllRuneWords";
 import { Reducer } from "react";
+import { getSelectedRunes, setSelectedRunes } from "./storage/localStore";
 
 export interface RuneWordsModel {
   allRuneWords: readonly RuneWord[];
   filteredRuneWords: readonly RuneWord[];
-  selectedRunes: Set<string>;
+  selectedRunes: ReadonlySet<string>;
 }
-
-export const filterBySelectedRunes = (selectedRunes: string[]) => ({
-  runes,
-}: RuneWord) =>
-  selectedRunes.every((rune) => runes.includes(rune)) ||
-  selectedRunes.length === 0;
 
 export const RuneWordsModelFunc = {
   default() {
     return {
-      filteredRuneWords: AllRuneWords,
-      selectedRunes: new Set<string>(),
+      filteredRuneWords: RuneWordsModelFunc.filterByRunes(
+        AllRuneWords,
+        getSelectedRunes()
+      ),
+      selectedRunes: new Set<string>(getSelectedRunes()),
       allRuneWords: AllRuneWords,
     };
+  },
+
+  filterByRunes(
+    runeWords: readonly RuneWord[],
+    selectedRunes: readonly string[]
+  ) {
+    return runeWords.filter(
+      ({ runes }) =>
+        selectedRunes.every((rune) => runes.includes(rune)) ||
+        selectedRunes.length === 0
+    );
   },
 
   toggleRuneSelection(model: RuneWordsModel, runeName: string): RuneWordsModel {
@@ -31,30 +40,25 @@ export const RuneWordsModelFunc = {
       selectedRunes.add(runeName);
     }
 
+    setSelectedRunes(Array.from(selectedRunes));
+
     return Object.assign({}, model, {
-      filteredRuneWords: model.allRuneWords.filter(
-        filterBySelectedRunes(Array.from(selectedRunes))
+      filteredRuneWords: RuneWordsModelFunc.filterByRunes(
+        AllRuneWords,
+        Array.from(selectedRunes)
       ),
       selectedRunes,
     });
   },
 };
 
-type RuneWordsModelActions =
-  | {
-      type: "filterByRunes";
-      selectedRunes: readonly string[];
-    }
-  | { type: "toggelRuneSelection"; runeName: string };
+type RuneWordsModelActions = { type: "toggelRuneSelection"; runeName: string };
 
 export const runeWordsReducer: Reducer<
   RuneWordsModel,
   RuneWordsModelActions
 > = (state, action) => {
   switch (action.type) {
-    case "filterByRunes": {
-      return state;
-    }
     case "toggelRuneSelection": {
       return RuneWordsModelFunc.toggleRuneSelection(state, action.runeName);
     }

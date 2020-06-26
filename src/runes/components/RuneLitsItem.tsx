@@ -6,22 +6,24 @@ interface RuneListItemProps {
   runeName: string;
 }
 
-export const RuneListItem = memo<RuneListItemProps>(
-  ({ runeName, selected, toggleSelection }) => {
-    const selectedClass = selected ? "btn-warning" : "btn-secondary";
+export const RuneListItem = memo<RuneListItemProps>(function RuneListItem({
+  runeName,
+  selected,
+  toggleSelection,
+}) {
+  const selectedClass = selected ? "btn-warning" : "btn-secondary";
 
-    const toggle = useCallback(() => {
-      toggleSelection(runeName);
-    }, [runeName, toggleSelection]);
+  const toggle = useCallback(() => {
+    toggleSelection(runeName);
+  }, [runeName, toggleSelection]);
 
-    return (
-      <button
-        type="button"
-        onClick={toggle}
-        className={`btn ${selectedClass} m-1 btn-sm`}
-      >
-        {runeName}
-      </button>
-    );
-  }
-);
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      className={`btn ${selectedClass} m-1 btn-sm`}
+    >
+      {runeName}
+    </button>
+  );
+});

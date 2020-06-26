@@ -7,19 +7,20 @@ interface RuneFilterProps {
   toggleRuneSelection: (runeName: string) => void;
 }
 
-export const RuneList = memo<RuneFilterProps>(
-  ({ selectedRunes, toggleRuneSelection }) => {
-    return (
-      <>
-        {RuneListData.map((rune) => (
-          <RuneListItem
-            key={rune}
-            runeName={rune}
-            selected={selectedRunes.has(rune)}
-            toggleSelection={toggleRuneSelection}
-          />
-        ))}
-      </>
-    );
-  }
-);
+export const RuneList = memo<RuneFilterProps>(function RuneList({
+  selectedRunes,
+  toggleRuneSelection,
+}) {
+  return (
+    <>
+      {RuneListData.map((rune) => (
+        <RuneListItem
+          key={rune}
+          runeName={rune}
+          selected={selectedRunes.has(rune)}
+          toggleSelection={toggleRuneSelection}
+        />
+      ))}
+    </>
+  );
+});

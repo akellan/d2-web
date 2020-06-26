@@ -15,7 +15,7 @@ interface RuneWordsContainerProps {
 }
 
 export const RuneWordsContainer = memo<RuneWordsContainerProps>(
-  ({ children }) => {
+  function RuneWordsContainer({ children }) {
     const [state, dispatch] = useReducer(runeWordsReducer, null, () =>
       RuneWordsModelFunc.default()
     );

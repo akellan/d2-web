@@ -5,7 +5,9 @@ interface RuneWordsListProps {
   runeWords: readonly RuneWord[];
 }
 
-export const RuneWordsList = memo<RuneWordsListProps>(({ runeWords }) => {
+export const RuneWordsList = memo<RuneWordsListProps>(function RuneWordsList({
+  runeWords,
+}) {
   return (
     <>
       {runeWords.map((runeword, index) => (

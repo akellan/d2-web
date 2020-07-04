@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { FC } from "react";
 import { RuneList as RuneListData } from "../../data";
 import { RuneListItem } from "./RuneLitsItem";
 
@@ -7,7 +7,7 @@ interface RuneFilterProps {
   toggleRuneSelection: (runeName: string) => void;
 }
 
-export const RuneList = memo<RuneFilterProps>(function RuneList({
+export const RuneList: FC<RuneFilterProps> = function RuneList({
   selectedRunes,
   toggleRuneSelection,
 }) {
@@ -23,4 +23,4 @@ export const RuneList = memo<RuneFilterProps>(function RuneList({
       ))}
     </>
   );
-});
+};

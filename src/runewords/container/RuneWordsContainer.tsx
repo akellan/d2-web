@@ -26,7 +26,7 @@ export const RuneWordsContainer = memo<RuneWordsContainerProps>(
       }, 0);
       setTimeout(() => {
         dispatch({ type: "filterByRunes" });
-      }, 0);
+      }, 1000);
     }, []);
 
     return children({ state, toggleRuneSelection });

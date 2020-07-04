@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from "react";
+import React, { useCallback, FC } from "react";
 
 interface RuneListItemProps {
   toggleSelection: (runeName: string) => void;
@@ -6,7 +6,7 @@ interface RuneListItemProps {
   runeName: string;
 }
 
-export const RuneListItem = memo<RuneListItemProps>(function RuneListItem({
+export const RuneListItem: FC<RuneListItemProps> = function RuneListItem({
   runeName,
   selected,
   toggleSelection,
@@ -26,4 +26,4 @@ export const RuneListItem = memo<RuneListItemProps>(function RuneListItem({
       {runeName}
     </button>
   );
-});
+};

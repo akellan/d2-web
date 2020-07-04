@@ -1,7 +1,7 @@
-import React, { memo } from "react";
+import React, { FC } from "react";
 import { RuneWord } from "../../../data/AllRuneWords";
 
-export const RuneWordItem = memo<{ runeword: RuneWord }>(function RuneWordItem({
+export const RuneWordItem: FC<{ runeword: RuneWord }> = function RuneWordItem({
   runeword,
 }) {
   return (
@@ -40,4 +40,4 @@ export const RuneWordItem = memo<{ runeword: RuneWord }>(function RuneWordItem({
       </div>
     </div>
   );
-});
+};

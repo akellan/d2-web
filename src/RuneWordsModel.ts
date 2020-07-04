@@ -55,14 +55,14 @@ export const RuneWordsModelFunc = {
     const sortedSelectedRunes = [...selectedRunes].sort();
 
     return runeWords.map((runeWord) => {
-      const isRuneWordVisisble = RuneWordsModelFunc.isArrayIncluded(
+      const isRuneWordVisible = RuneWordsModelFunc.isArrayIncluded(
         runeWord.sortedRunes,
         sortedSelectedRunes
       );
 
-      return runeWord.isVisible === isRuneWordVisisble
+      return runeWord.isVisible === isRuneWordVisible
         ? runeWord
-        : { ...runeWord, isVisible: isRuneWordVisisble };
+        : { ...runeWord, isVisible: isRuneWordVisible };
     });
   },
 

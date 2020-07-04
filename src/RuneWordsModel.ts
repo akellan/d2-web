@@ -1,6 +1,6 @@
 import { RuneWord, AllRuneWords } from "./data/AllRuneWords";
 import { Reducer } from "react";
-import { getSelectedRunes, setSelectedRunes } from "./storage/localStore";
+import { LocalStore } from "./storage/localStore";
 
 export interface RuneWordsModel {
   allRuneWords: readonly RuneWord[];
@@ -11,24 +11,59 @@ export interface RuneWordsModel {
 export const RuneWordsModelFunc = {
   default() {
     return {
-      filteredRuneWords: RuneWordsModelFunc.filterByRunes(
+      filteredRuneWords: RuneWordsModelFunc.filterByRunesOp(
         AllRuneWords,
-        getSelectedRunes()
+        LocalStore.getSelectedRunes()
       ),
-      selectedRunes: new Set<string>(getSelectedRunes()),
+      selectedRunes: new Set<string>(LocalStore.getSelectedRunes()),
       allRuneWords: AllRuneWords,
     };
   },
 
-  filterByRunes(
-    runeWords: readonly RuneWord[],
-    selectedRunes: readonly string[]
-  ) {
-    return runeWords.filter(
-      ({ runes }) =>
-        selectedRunes.every((rune) => runes.includes(rune)) ||
-        selectedRunes.length === 0
-    );
+  isArrayIncluded(sortedArray: string[], includedArray: string[]) {
+    if (includedArray.length === 0) {
+      return true;
+    }
+
+    if (includedArray.length > sortedArray.length) {
+      return false;
+    }
+
+    let runeWordIndex = 0;
+    let selectedRunesIndex = 0;
+
+    while (
+      selectedRunesIndex < includedArray.length &&
+      runeWordIndex < sortedArray.length
+    ) {
+      if (sortedArray[runeWordIndex] === includedArray[selectedRunesIndex]) {
+        runeWordIndex++;
+        selectedRunesIndex++;
+      } else {
+        runeWordIndex++;
+      }
+
+      if (selectedRunesIndex === includedArray.length) {
+        break;
+      }
+    }
+
+    return selectedRunesIndex === includedArray.length;
+  },
+
+  filterByRunesOp(runeWords: readonly RuneWord[], selectedRunes: string[]) {
+    const sortedSelectedRunes = [...selectedRunes].sort();
+
+    return runeWords.map((runeWord) => {
+      const isRuneWordVisisble = RuneWordsModelFunc.isArrayIncluded(
+        runeWord.sortedRunes,
+        sortedSelectedRunes
+      );
+
+      return runeWord.isVisible === isRuneWordVisisble
+        ? runeWord
+        : { ...runeWord, isVisible: isRuneWordVisisble };
+    });
   },
 
   toggleRuneSelection(model: RuneWordsModel, runeName: string): RuneWordsModel {
@@ -40,15 +75,16 @@ export const RuneWordsModelFunc = {
       selectedRunes.add(runeName);
     }
 
-    setSelectedRunes(Array.from(selectedRunes));
+    LocalStore.setSelectedRunes(Array.from(selectedRunes));
 
-    return Object.assign({}, model, {
-      filteredRuneWords: RuneWordsModelFunc.filterByRunes(
+    return {
+      ...model,
+      filteredRuneWords: RuneWordsModelFunc.filterByRunesOp(
         AllRuneWords,
         Array.from(selectedRunes)
       ),
       selectedRunes,
-    });
+    };
   },
 };
 

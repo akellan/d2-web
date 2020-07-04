@@ -1,11 +1,16 @@
-export interface RuneWord {
+export interface RuneWord extends RuneWordData {
+  isVisible: boolean;
+  sortedRunes: string[];
+}
+
+export interface RuneWordData {
   name: string;
   types: string[];
   runes: string[];
   stats: string[];
 }
 
-export const AllRuneWords: RuneWord[] = [
+const AllRuneWordsData: RuneWordData[] = [
   {
     name: "Ancient's Pledge",
     types: ["Shields"],
@@ -1359,3 +1364,9 @@ export const AllRuneWords: RuneWord[] = [
     ],
   },
 ];
+
+export const AllRuneWords: RuneWord[] = AllRuneWordsData.map((runeWord) => ({
+  ...runeWord,
+  isVisible: true,
+  sortedRunes: Array.from(runeWord.runes).sort(),
+}));

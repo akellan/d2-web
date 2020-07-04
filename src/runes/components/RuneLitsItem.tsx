@@ -11,19 +11,19 @@ export const RuneListItem: FC<RuneListItemProps> = function RuneListItem({
   selected,
   toggleSelection,
 }) {
-  const selectedClass = selected ? "btn-warning" : "btn-secondary";
+  const selectedClass = selected ? "badge-warning" : "badge-secondary";
 
   const toggle = useCallback(() => {
     toggleSelection(runeName);
   }, [runeName, toggleSelection]);
 
   return (
-    <button
-      type="button"
+    <span
+      role="button"
       onClick={toggle}
-      className={`btn ${selectedClass} m-1 btn-sm`}
+      className={`badge ${selectedClass} m-1`}
     >
       {runeName}
-    </button>
+    </span>
   );
 };

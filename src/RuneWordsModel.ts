@@ -79,16 +79,24 @@ export const RuneWordsModelFunc = {
 
     return {
       ...model,
+      selectedRunes,
+    };
+  },
+
+  filterByRunes(model: RuneWordsModel): RuneWordsModel {
+    return {
+      ...model,
       filteredRuneWords: RuneWordsModelFunc.filterByRunesOp(
         AllRuneWords,
-        Array.from(selectedRunes)
+        Array.from(model.selectedRunes)
       ),
-      selectedRunes,
     };
   },
 };
 
-type RuneWordsModelActions = { type: "toggelRuneSelection"; runeName: string };
+type RuneWordsModelActions =
+  | { type: "toggelRuneSelection"; runeName: string }
+  | { type: "filterByRunes" };
 
 export const runeWordsReducer: Reducer<
   RuneWordsModel,
@@ -97,6 +105,9 @@ export const runeWordsReducer: Reducer<
   switch (action.type) {
     case "toggelRuneSelection": {
       return RuneWordsModelFunc.toggleRuneSelection(state, action.runeName);
+    }
+    case "filterByRunes": {
+      return RuneWordsModelFunc.filterByRunes(state);
     }
     default:
       return state;

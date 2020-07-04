@@ -21,7 +21,12 @@ export const RuneWordsContainer = memo<RuneWordsContainerProps>(
     );
 
     const toggleRuneSelection = useCallback((runeName: string) => {
-      dispatch({ type: "toggelRuneSelection", runeName });
+      setTimeout(() => {
+        dispatch({ type: "toggelRuneSelection", runeName });
+      }, 0);
+      setTimeout(() => {
+        dispatch({ type: "filterByRunes" });
+      }, 0);
     }, []);
 
     return children({ state, toggleRuneSelection });
